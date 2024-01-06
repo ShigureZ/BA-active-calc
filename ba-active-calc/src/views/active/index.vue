@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import * as math from 'mathjs'
+import { onMounted } from 'vue'
 
 const Q9 = [30, 4]
 const Q10 = [25, 4]
@@ -15,12 +16,37 @@ let itemAdd = ref(['', '', '', ''])
 
 let Qtime = ref([])
 
+onMounted(() => {
+  initCache()
+})
+
 const num2percent = (num) => {
   return 1 + num / 100
 }
 
+// 初始化用户数据
+const initCache = () => {
+  itemNeed.value = JSON.parse(localStorage.getItem('shigure_BA_itemNeed')) ?? itemNeed.value
+  itemHave.value = JSON.parse(localStorage.getItem('shigure_BA_itemHave')) ?? itemHave.value
+  itemAdd.value = JSON.parse(localStorage.getItem('shigure_BA_itemAdd')) ?? itemAdd.value
+}
+// 缓存用户输入项
+const saveCache = () => {
+  localStorage.setItem('shigure_BA_itemNeed', JSON.stringify(itemNeed.value))
+  localStorage.setItem('shigure_BA_itemHave', JSON.stringify(itemHave.value))
+  localStorage.setItem('shigure_BA_itemAdd', JSON.stringify(itemAdd.value))
+}
+// 清空缓存
+const cleanCache = () => {
+  localStorage.removeItem('shigure_BA_itemNeed')
+  localStorage.removeItem('shigure_BA_itemHave')
+  localStorage.removeItem('shigure_BA_itemAdd')
+  reset()
+}
+
 // 计算数量
 const calc = () => {
+  saveCache()
   // 创建材料PT矩阵
   const QM = math.matrix([
     [Q9[0] * num2percent(itemAdd.value[0]), 0, 0, Q9[1] * num2percent(itemAdd.value[3])],
@@ -55,9 +81,9 @@ const calc = () => {
 
 // 重置输入项
 const reset = () => {
-  itemNeed.value = [0, 0, 0, 0]
-  itemHave.value = [0, 0, 0, 0]
-  itemAdd.value = [0, 0, 0, 0]
+  itemNeed.value = ['', '', '', '']
+  itemHave.value = ['', '', '', '']
+  itemAdd.value = ['', '', '', '']
   Qtime.value = []
 }
 
@@ -120,6 +146,7 @@ const setNull = () => {}
     </table>
     <div class="btn">
       <el-button type="primary" @click="calc">计算</el-button>
+      <el-button type="warning" @click="cleanCache">清空缓存</el-button>
       <el-button type="danger" @click="reset">重置</el-button>
     </div>
   </div>
@@ -144,5 +171,6 @@ table {
 .btn {
   @extend table;
   text-align: right;
+  margin-top: 20px;
 }
 </style>
