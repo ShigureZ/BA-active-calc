@@ -1,7 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import * as math from 'mathjs'
-import { onMounted } from 'vue'
 import ItemTree from './components/tree.vue'
 import { item1, item2, item3 } from './active.js'
 
@@ -17,6 +16,26 @@ let itemAdd = ref(['', '', '', '', ''])
 
 let Qtime = ref([])
 
+const itemTree1 = ref([])
+const itemTree2 = ref([])
+const itemTree3 = ref([])
+const tree1 = ref(null)
+const tree2 = ref(null)
+const tree3 = ref(null)
+
+const getTreeNode = () => {
+  const tree1NodeList = tree1.value.getSelNodeList()
+  const tree2NodeList = tree2.value.getSelNodeList()
+  const tree3NodeList = tree3.value.getSelNodeList()
+  return [tree1NodeList, tree2NodeList, tree3NodeList]
+}
+const setTreeNode = (reset) => {
+  tree1.value.initTreeSel(reset ? [] : itemTree1.value)
+  tree2.value.initTreeSel(reset ? [] : itemTree2.value)
+  tree3.value.initTreeSel(reset ? [] : itemTree3.value)
+}
+
+
 onMounted(() => {
   initCache()
 })
@@ -25,23 +44,35 @@ const num2percent = (num) => {
   return 1 + num / 100
 }
 
+
 // 初始化用户数据
 const initCache = () => {
   itemNeed.value = JSON.parse(localStorage.getItem('shigure_BA_itemNeed')) ?? itemNeed.value
   itemHave.value = JSON.parse(localStorage.getItem('shigure_BA_itemHave')) ?? itemHave.value
   itemAdd.value = JSON.parse(localStorage.getItem('shigure_BA_itemAdd')) ?? itemAdd.value
+  itemTree1.value = JSON.parse(localStorage.getItem('shigure_BA_itemTree1')) ?? itemTree1.value
+  itemTree2.value = JSON.parse(localStorage.getItem('shigure_BA_itemTree2')) ?? itemTree2.value
+  itemTree3.value = JSON.parse(localStorage.getItem('shigure_BA_itemTree3')) ?? itemTree3.value
+  setTreeNode()
 }
 // 缓存用户输入项
 const saveCache = () => {
+  const nodeSel = getTreeNode()
   localStorage.setItem('shigure_BA_itemNeed', JSON.stringify(itemNeed.value))
   localStorage.setItem('shigure_BA_itemHave', JSON.stringify(itemHave.value))
   localStorage.setItem('shigure_BA_itemAdd', JSON.stringify(itemAdd.value))
+  localStorage.setItem('shigure_BA_itemTree1', JSON.stringify(nodeSel[0]))
+  localStorage.setItem('shigure_BA_itemTree2', JSON.stringify(nodeSel[1]))
+  localStorage.setItem('shigure_BA_itemTree3', JSON.stringify(nodeSel[2]))
 }
 // 清空缓存
 const cleanCache = () => {
   localStorage.removeItem('shigure_BA_itemNeed')
   localStorage.removeItem('shigure_BA_itemHave')
   localStorage.removeItem('shigure_BA_itemAdd')
+  localStorage.removeItem('shigure_BA_itemTree1')
+  localStorage.removeItem('shigure_BA_itemTree2')
+  localStorage.removeItem('shigure_BA_itemTree3')
   reset()
 }
 
@@ -82,10 +113,13 @@ const calc = () => {
 
 // 重置输入项
 const reset = () => {
-  itemNeed.value = ['', '', '', '']
-  itemHave.value = ['', '', '', '']
-  itemAdd.value = ['', '', '', '']
-  Qtime.value = []
+  setTreeNode(true)
+  setTimeout(() => {
+    itemNeed.value = ['', '', '', '']
+    itemHave.value = ['', '', '', '']
+    itemAdd.value = ['', '', '', '']
+    Qtime.value = []
+  }, 0);
 }
 
 const selectItem1 = (price) => {
@@ -104,13 +138,22 @@ const selectItem3 = (price) => {
 
 <template>
   <div>
-    <h2 style="text-align: center">BA活动刷图计算器 v0.1</h2>
+    <h2 style="text-align: center">BA活动刷图计算器 v0.11</h2>
 
-    <!-- <div class="shop">
-      <ItemTree :data="item1" @select-item="selectItem1" />
-      <ItemTree :data="item2" @select-item="selectItem2" />
-      <ItemTree :data="item3" @select-item="selectItem3" />
-    </div> -->
+
+    <el-card class="shop">
+      <template #header>
+        <div class="card-header">
+          <span>商店道具</span>
+        </div>
+      </template>
+      <div class="item-tree">
+        <ItemTree :data="item1" @select-item="selectItem1" ref="tree1" />
+        <ItemTree :data="item2" @select-item="selectItem2" ref="tree2" />
+        <ItemTree :data="item3" @select-item="selectItem3" ref="tree3" />
+      </div>
+    </el-card>
+
 
 
     <table>
@@ -194,8 +237,13 @@ const selectItem3 = (price) => {
 
 .shop {
   @extend %main;
-  display: flex;
-  justify-content: space-between
+  width: 800px;
+  margin-bottom: 20px;
+
+  .item-tree {
+    display: flex;
+    justify-content: space-around;
+  }
 }
 
 table {
