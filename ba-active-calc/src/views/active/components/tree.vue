@@ -23,7 +23,6 @@ const price = (arr) => {
 
 <template>
   <div>
-    <span>{{ props.data }}</span>
     <el-tree
       :data="props.data"
       @check-change="handleNodeClick"

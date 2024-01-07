@@ -13,7 +13,7 @@ const ap = 15
 
 let itemNeed = ref(['', '', '', ''])
 let itemHave = ref(['', '', '', ''])
-let itemAdd = ref(['', '', '', ''])
+let itemAdd = ref(['', '', '', '', ''])
 
 let Qtime = ref([])
 
@@ -57,7 +57,7 @@ const calc = () => {
       Q12[0] * num2percent(itemAdd.value[0]),
       Q12[1] * num2percent(itemAdd.value[1]),
       Q12[2] * num2percent(itemAdd.value[2]),
-      Q12[3] * num2percent(itemAdd.value[3])
+      Q12[3] * num2percent(itemAdd.value[4])
     ]
   ])
 
@@ -77,7 +77,7 @@ const calc = () => {
     return e < 0 ? 0 : math.ceil(e[0])
   })
 
-  console.log(Qtime.value)
+  console.log(QM)
 }
 
 // 重置输入项
@@ -90,7 +90,7 @@ const reset = () => {
 
 const selectItem1 = (price) => {
   console.log('[selectItem1]', price)
-  itemNee.valued[0] = +itemNeed.value[0] + price
+  itemNeed.value[0] = +itemNeed.value[0] + price
 }
 const selectItem2 = (price) => {
   console.log('[selectItem2]', price)
@@ -105,6 +105,14 @@ const selectItem3 = (price) => {
 <template>
   <div>
     <h2 style="text-align: center">BA活动刷图计算器 v0.1</h2>
+
+    <!-- <div class="shop">
+      <ItemTree :data="item1" @select-item="selectItem1" />
+      <ItemTree :data="item2" @select-item="selectItem2" />
+      <ItemTree :data="item3" @select-item="selectItem3" />
+    </div> -->
+
+
     <table>
       <tr>
         <th></th>
@@ -115,10 +123,22 @@ const selectItem3 = (price) => {
       </tr>
       <tr>
         <td>加成</td>
-        <td v-for="(item, index) in itemAdd" :key="'add' + index">
+        <td v-for="(item, index) in itemAdd" :key="'add' + index" v-show="index < 3">
           <el-input v-model="itemAdd[index]" type="number" clearable placeholder="请输入加成">
             <template #append>%</template>
           </el-input>
+        </td>
+        <td style="display: flex;justify-content: center;">
+          <div style="width: 300px;">
+            <el-input v-model="itemAdd[3]" type="number" clearable placeholder="请输入Q9-Q11加成" style="margin-bottom: 10px;">
+              <template #prepend>&nbsp;Q9</template>
+              <template #append>%</template>
+            </el-input>
+            <el-input v-model="itemAdd[4]" type="number" clearable placeholder="请输入Q12加成">
+              <template #prepend>Q12</template>
+              <template #append>%</template>
+            </el-input>
+          </div>
         </td>
       </tr>
       <tr>
@@ -156,9 +176,7 @@ const selectItem3 = (price) => {
         </td>
       </tr>
     </table>
-    <ItemTree :data="item1" @select-item="selectItem1" />
-    <ItemTree :data="item2" @select-item="selectItem2" />
-    <ItemTree :data="item3" @select-item="selectItem3" />
+
     <div class="btn">
       <el-button type="primary" @click="calc">计算</el-button>
       <el-button type="warning" @click="cleanCache">清空缓存</el-button>
@@ -168,23 +186,36 @@ const selectItem3 = (price) => {
 </template>
 
 <style lang="scss" scoped>
-table {
-  width: 80%;
+%main {
+  width: 1500px;
   text-align: center;
   margin: auto;
+}
+
+.shop {
+  @extend %main;
+  display: flex;
+  justify-content: space-between
+}
+
+table {
+  @extend %main;
+
   td {
     padding: 10px 5px;
+
     .el-input {
-      width: 250px;
+      width: 300px;
     }
   }
+
   th {
     font-size: 20px;
   }
 }
 
 .btn {
-  @extend table;
+  @extend %main;
   text-align: right;
   margin-top: 20px;
 }
