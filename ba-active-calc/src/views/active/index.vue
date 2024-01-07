@@ -138,7 +138,7 @@ const selectItem3 = (price) => {
 
 <template>
   <div>
-    <h2 style="text-align: center">BA活动刷图计算器 v0.11</h2>
+    <h2 style="text-align: center">BA活动刷图计算器 v0.20</h2>
 
 
     <el-card class="shop">
