@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import * as math from 'mathjs'
 import { onMounted } from 'vue'
+import ItemTree from './components/tree.vue'
+import { item1, item2, item3 } from './active.js'
 
-const Q9 = [30, 4]
-const Q10 = [25, 4]
-const Q11 = [20, 4]
+const Q9 = [30, 5]
+const Q10 = [24, 5]
+const Q11 = [20, 5]
 const Q12 = [4, 4, 4, 20]
-
 const ap = 15
 
 let itemNeed = ref(['', '', '', ''])
@@ -87,7 +88,18 @@ const reset = () => {
   Qtime.value = []
 }
 
-const setNull = () => {}
+const selectItem1 = (price) => {
+  console.log('[selectItem1]', price)
+  itemNee.valued[0] = +itemNeed.value[0] + price
+}
+const selectItem2 = (price) => {
+  console.log('[selectItem2]', price)
+  itemNeed.value[1] = +itemNeed.value[1] + price
+}
+const selectItem3 = (price) => {
+  console.log('[selectItem3]', price)
+  itemNeed.value[2] = +itemNeed.value[2] + price
+}
 </script>
 
 <template>
@@ -144,6 +156,9 @@ const setNull = () => {}
         </td>
       </tr>
     </table>
+    <ItemTree :data="item1" @select-item="selectItem1" />
+    <ItemTree :data="item2" @select-item="selectItem2" />
+    <ItemTree :data="item3" @select-item="selectItem3" />
     <div class="btn">
       <el-button type="primary" @click="calc">计算</el-button>
       <el-button type="warning" @click="cleanCache">清空缓存</el-button>
