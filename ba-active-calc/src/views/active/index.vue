@@ -1,8 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import * as math from 'mathjs'
+import NP from 'number-precision'
 import ItemTree from './components/tree.vue'
 import { item1, item2, item3 } from './active.js'
+import itemImg1 from '../../assets/277/item/item1.png';
+import itemImg2 from '../../assets/277/item/item2.png';
+import itemImg3 from '../../assets/277/item/item3.png';
+import itemImgPt from '../../assets/277/item/pt.png';
 
 const Q9 = [30, 5]
 const Q10 = [24, 5]
@@ -40,8 +45,13 @@ onMounted(() => {
   initCache()
 })
 
+/**
+ * 数字转百分数
+ * @param {number} num 
+ */
 const num2percent = (num) => {
-  return 1 + num / 100
+  console.log(num, (100 + +num) / 100);
+  return (100 + +num) / 100
 }
 
 
@@ -69,7 +79,6 @@ const saveCache = () => {
 const cleanCache = () => {
   localStorage.removeItem('shigure_BA_itemNeed')
   localStorage.removeItem('shigure_BA_itemHave')
-  localStorage.removeItem('shigure_BA_itemAdd')
   localStorage.removeItem('shigure_BA_itemTree1')
   localStorage.removeItem('shigure_BA_itemTree2')
   localStorage.removeItem('shigure_BA_itemTree3')
@@ -78,21 +87,26 @@ const cleanCache = () => {
 
 // 计算数量
 const calc = () => {
+  const _getItemNum = (base, persent) => {
+    return Math.ceil(NP.times(base, persent))
+  }
   saveCache()
+
+  console.log(Q10[0], num2percent(itemAdd.value[1]), Q10[0] * num2percent(itemAdd.value[1]));
   // 创建材料PT矩阵
   const QM = math.matrix([
-    [Q9[0] * num2percent(itemAdd.value[0]), 0, 0, Q9[1] * num2percent(itemAdd.value[3])],
-    [0, Q10[0] * num2percent(itemAdd.value[1]), 0, Q10[1] * num2percent(itemAdd.value[3])],
-    [0, 0, Q11[0] * num2percent(itemAdd.value[2]), Q11[1] * num2percent(itemAdd.value[3])],
+    [_getItemNum(Q9[0], num2percent(itemAdd.value[0])), 0, 0, _getItemNum(Q9[1], num2percent(itemAdd.value[3]))],
+    [0, _getItemNum(Q10[0], num2percent(itemAdd.value[1])), 0, _getItemNum(Q10[1], num2percent(itemAdd.value[3]))],
+    [0, 0, _getItemNum(Q11[0], num2percent(itemAdd.value[2])), _getItemNum(Q11[1], num2percent(itemAdd.value[3]))],
     [
-      Q12[0] * num2percent(itemAdd.value[0]),
-      Q12[1] * num2percent(itemAdd.value[1]),
-      Q12[2] * num2percent(itemAdd.value[2]),
-      Q12[3] * num2percent(itemAdd.value[4])
+      _getItemNum(Q12[0], num2percent(itemAdd.value[0])),
+      _getItemNum(Q12[1], num2percent(itemAdd.value[1])),
+      _getItemNum(Q12[2], num2percent(itemAdd.value[2])),
+      _getItemNum(Q12[3], num2percent(itemAdd.value[4]))
     ]
   ])
 
-  // 创建需求矩阵
+  // 创建需求矩阵1
   const needM = math.matrix([
     [itemNeed.value[0] - itemHave.value[0]],
     [itemNeed.value[1] - itemHave.value[1]],
@@ -111,6 +125,16 @@ const calc = () => {
   console.log(QM)
 }
 
+const sum = computed(() => {
+  const time = Qtime.value.reduce((total, num) => {
+    return total += num
+  }, 0)
+  const sumAp = time * ap
+
+  console.log("[sum]", time, sumAp);
+  return [time, sumAp]
+})
+
 // 重置输入项
 const reset = () => {
   setTreeNode(true)
@@ -123,15 +147,12 @@ const reset = () => {
 }
 
 const selectItem1 = (price) => {
-  console.log('[selectItem1]', price)
   itemNeed.value[0] = +itemNeed.value[0] + price
 }
 const selectItem2 = (price) => {
-  console.log('[selectItem2]', price)
   itemNeed.value[1] = +itemNeed.value[1] + price
 }
 const selectItem3 = (price) => {
-  console.log('[selectItem3]', price)
   itemNeed.value[2] = +itemNeed.value[2] + price
 }
 </script>
@@ -159,10 +180,30 @@ const selectItem3 = (price) => {
     <table>
       <tr>
         <th></th>
-        <th>浴巾</th>
-        <th>洗发水</th>
-        <th>入浴剂</th>
-        <th>PT</th>
+        <th>
+          <div class="flex">
+            <span>浴巾</span>
+            <el-image style="width: 50px; " :src="itemImg1" :fit="fit" />
+          </div>
+        </th>
+        <th>
+          <div class="flex">
+            <span>洗发水</span>
+            <el-image style="width:  50px; " :src="itemImg2" :fit="fit" />
+          </div>
+        </th>
+        <th>
+          <div class="flex">
+            <span>入浴剂</span>
+            <el-image style="width:  50px; " :src="itemImg3" :fit="fit" />
+          </div>
+        </th>
+        <th>
+          <div class="flex">
+            <span>PT</span>
+            <el-image style="width:  50px; " :src="itemImgPt" :fit="fit" />
+          </div>
+        </th>
       </tr>
       <tr>
         <td>加成</td>
@@ -209,13 +250,22 @@ const selectItem3 = (price) => {
       <tr>
         <td>次数</td>
         <td v-for="(item, index) in Qtime" :key="'time' + index">
-          <el-tag type="success">{{ item }}次</el-tag>
+          <el-tag type="success" size="large">{{ item }}次</el-tag>
         </td>
       </tr>
       <tr>
         <td>体力</td>
         <td v-for="(item, index) in Qtime" :key="'ap' + index">
-          <el-tag type="success">{{ item * ap }}AP</el-tag>
+          <el-tag type="success" size="large">{{ item * ap }}AP</el-tag>
+        </td>
+      </tr>
+      <tr>
+        <td>合计</td>
+        <td>
+          <el-tag size="large">共需刷图：{{ sum[0] }}次</el-tag>
+        </td>
+        <td>
+          <el-tag size="large">消耗体力：{{ sum[1] }}AP</el-tag>
         </td>
       </tr>
     </table>
@@ -248,6 +298,12 @@ const selectItem3 = (price) => {
 
 table {
   @extend %main;
+
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   td {
     padding: 10px 5px;

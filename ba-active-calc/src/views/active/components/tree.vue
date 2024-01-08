@@ -4,14 +4,24 @@ const props = defineProps(['data'])
 const emit = defineEmits(['select-item'])
 
 const tree = ref(null)
+
+let isInit = true
 const initTreeSel = (nodeList) => {
   console.log(nodeList);
   tree.value.setCheckedNodes(nodeList)
+  setTimeout(() => {
+    isInit = false
+  }, 0)
 }
 
 
 const handleNodeClick = (node, isCheck, hasChild) => {
   if (node.children) {
+    return
+  }
+  console.log("[handleNodeClick]", isInit);
+  // 初始化树节点时，不改变道具需求值
+  if (isInit) {
     return
   }
   const price = node.num * node.value
