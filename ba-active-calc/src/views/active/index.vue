@@ -4,10 +4,15 @@ import * as math from 'mathjs'
 import NP from 'number-precision'
 import ItemTree from './components/tree.vue'
 import { item1, item2, item3 } from './active.js'
+import { getImg } from '@/utils'
+import activeJson from './active.json';
 import itemImg1 from '../../assets/277/item/item1.png';
 import itemImg2 from '../../assets/277/item/item2.png';
 import itemImg3 from '../../assets/277/item/item3.png';
 import itemImgPt from '../../assets/277/item/pt.png';
+
+const img = ref(getImg('../assets/role/Portrait_Ako.png'))
+console.log(img.value);
 
 const Q9 = [30, 5]
 const Q10 = [24, 5]
@@ -161,6 +166,7 @@ const selectItem3 = (price) => {
   <div>
     <h2 style="text-align: center">BA活动刷图计算器 v0.21</h2>
 
+    <el-image style="width: 50px; " :src="img" :fit="fit" />
 
     <el-card class="shop">
       <template #header>

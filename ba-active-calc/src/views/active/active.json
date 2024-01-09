@@ -1,0 +1,408 @@
+{
+    "activeName": "227",
+    "bonusRole": [
+        {
+            "name": "ba",
+            "nameCN": "巴",
+            "item1Bouns": 40,
+            "item2Bouns": 0,
+            "item3Bouns": 0,
+            "ptBouns": 30,
+            "img": "../assets/role/Portrait_Tomoe.png"
+        },
+        {
+            "name": "rinai",
+            "nameCN": "日奈",
+            "item1Bouns": 30,
+            "item2Bouns": 0,
+            "item3Bouns": 0,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Hina.png"
+        },
+        {
+            "name": "hexiang",
+            "nameCN": "和香",
+            "item1Bouns": 30,
+            "item2Bouns": 0,
+            "item3Bouns": 0,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Nodoka.png"
+        },
+        {
+            "name": "qianxiawenquan",
+            "nameCN": "千夏（温泉）",
+            "item1Bouns": 0,
+            "item2Bouns": 40,
+            "item3Bouns": 0,
+            "ptBouns": 30,
+            "img": "../assets/role/Portrait_Chinatsu_(Hot_Spring).png"
+        },
+        {
+            "name": "yizhi",
+            "nameCN": "伊织",
+            "item1Bouns": 0,
+            "item2Bouns": 30,
+            "item3Bouns": 0,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Iori.png"
+        },
+        {
+            "name": "qianxia",
+            "nameCN": "千夏",
+            "item1Bouns": 0,
+            "item2Bouns": 30,
+            "item3Bouns": 0,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Chinatsu.png"
+        },
+        {
+            "name": "qielinuowenquan",
+            "nameCN": "切里诺（温泉）",
+            "item1Bouns": 0,
+            "item2Bouns": 0,
+            "item3Bouns": 40,
+            "ptBouns": 30,
+            "img": "../assets/role/Portrait_Cherino_(Hot_Spring).png"
+        },
+        {
+            "name": "qielinuo",
+            "nameCN": "切里诺",
+            "item1Bouns": 0,
+            "item2Bouns": 0,
+            "item3Bouns": 30,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Cherino.png"
+        },
+        {
+            "name": "yazi",
+            "nameCN": "亚子",
+            "item1Bouns": 0,
+            "item2Bouns": 0,
+            "item3Bouns": 30,
+            "ptBouns": 10,
+            "img": "../assets/role/Portrait_Ako.png"
+        }
+    ],
+    "activeItem": {
+        "item1": {
+            "name": "浴巾",
+            "img": "../assets/277/item/item1.png"
+        },
+        "item2": {
+            "name": "浴巾",
+            "img": "../assets/277/item/item2.png"
+        },
+        "item3": {
+            "name": "浴巾",
+            "img": "../assets/277/item/item3.png"
+        },
+        "pt": {
+            "name": "浴巾",
+            "img": "../assets/277/item/pt.png"
+        }
+    },
+    "shopItem": [
+        {
+            "name": "qianxiasuipian",
+            "nameCN": "千夏碎片",
+            "num": 50,
+            "price": 25,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "baijingyanshu",
+            "nameCN": "白经验书",
+            "num": 600,
+            "price": 1,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "lanjingyanshu",
+            "nameCN": "蓝经验书",
+            "num": 150,
+            "price": 10,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "jinjingyanshu",
+            "nameCN": "金经验书",
+            "num": 45,
+            "price": 40,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "zijingyanshu",
+            "nameCN": "紫经验书",
+            "num": 10,
+            "price": 200,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "baihongdongshu",
+            "nameCN": "白红东书",
+            "num": 40,
+            "price": 7,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "lanhongdongshu",
+            "nameCN": "蓝红东书",
+            "num": 30,
+            "price": 12,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "jinhongdongshu",
+            "nameCN": "金红东书",
+            "num": 20,
+            "price": 24,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "zihongdongshu",
+            "nameCN": "紫红东书",
+            "num": 10,
+            "price": 60,
+            "need": "item1",
+            "needCN": "浴巾"
+        },
+        {
+            "name": "fengxiangsuipian",
+            "nameCN": "风香碎片",
+            "num": 50,
+            "price": 20,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "baishitou",
+            "nameCN": "白石头",
+            "num": 200,
+            "price": 1,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "lanshitou",
+            "nameCN": "蓝石头",
+            "num": 50,
+            "price": 4,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "jinshitou",
+            "nameCN": "金石头",
+            "num": 15,
+            "price": 16,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "zishitou",
+            "nameCN": "紫石头",
+            "num": 3,
+            "price": 64,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "baihongdongBD",
+            "nameCN": "白红东BD",
+            "num": 35,
+            "price": 20,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "lanhongdongBD",
+            "nameCN": "蓝红东BD",
+            "num": 30,
+            "price": 40,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "jinhongdongBD",
+            "nameCN": "金红东BD",
+            "num": 25,
+            "price": 100,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "zihongdongBD",
+            "nameCN": "紫红东BD",
+            "num": 7,
+            "price": 200,
+            "need": "item2",
+            "needCN": "洗发水"
+        },
+        {
+            "name": "qielinuosuipian",
+            "nameCN": "切里诺",
+            "num": 50,
+            "price": 16,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "baiyitai",
+            "nameCN": "白以太",
+            "num": 150,
+            "price": 3,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "lanyitai",
+            "nameCN": "蓝以太",
+            "num": 60,
+            "price": 10,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "jinyitai",
+            "nameCN": "金以太",
+            "num": 30,
+            "price": 25,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "ziyitai",
+            "nameCN": "紫以太",
+            "num": 15,
+            "price": 50,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "baimandela",
+            "nameCN": "白曼德拉",
+            "num": 150,
+            "price": 3,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "lanmandela",
+            "nameCN": "蓝曼德拉",
+            "num": 60,
+            "price": 10,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "jinmandela",
+            "nameCN": "金曼德拉",
+            "num": 30,
+            "price": 25,
+            "need": "item3",
+            "needCN": "入浴剂"
+        },
+        {
+            "name": "zimandela",
+            "nameCN": "紫曼德拉",
+            "num": 15,
+            "price": 50,
+            "need": "item3",
+            "needCN": "入浴剂"
+        }
+    ],
+    "levelInfo": [
+        {
+            "name": "Q9",
+            "itemAward": [
+                {
+                    "name": "item1",
+                    "num": 30
+                },
+                {
+                    "name": "item2",
+                    "num": 0
+                },
+                {
+                    "name": "item3",
+                    "num": 0
+                },
+                {
+                    "name": "pt",
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "Q10",
+            "itemAward": [
+                {
+                    "name": "item1",
+                    "num": 0
+                },
+                {
+                    "name": "item2",
+                    "num": 24
+                },
+                {
+                    "name": "item3",
+                    "num": 0
+                },
+                {
+                    "name": "pt",
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "Q11",
+            "itemAward": [
+                {
+                    "name": "item1",
+                    "num": 0
+                },
+                {
+                    "name": "item2",
+                    "num": 0
+                },
+                {
+                    "name": "item3",
+                    "num": 20
+                },
+                {
+                    "name": "pt",
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "Q12",
+            "itemAward": [
+                {
+                    "name": "item1",
+                    "num": 4
+                },
+                {
+                    "name": "item2",
+                    "num": 4
+                },
+                {
+                    "name": "item3",
+                    "num": 4
+                },
+                {
+                    "name": "pt",
+                    "num": 20
+                }
+            ]
+        }
+    ]
+}
