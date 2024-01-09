@@ -146,7 +146,6 @@ const reset = () => {
   setTimeout(() => {
     itemNeed.value = ['', '', '', '']
     itemHave.value = ['', '', '', '']
-    itemAdd.value = ['', '', '', '']
     Qtime.value = []
   }, 0);
 }
